@@ -41,10 +41,15 @@
     }
     
     NSUInteger possibleCount = 0;
-    for (NSMutableArray *sidesArray in newInputArray) {
-        NSArray<NSNumber *> *sortedSides = [sidesArray sortedArrayUsingSelector: @selector(compare:)];
-        if (sortedSides[0].integerValue + sortedSides[1].integerValue > sortedSides[2].integerValue) {
-            possibleCount += 1;
+    for (NSUInteger i = 0; i < 3; ++i) {
+        for (NSUInteger j = 0; j < newInputArray.count; j+=3) {
+            NSArray<NSNumber *> *sides = @[newInputArray[j][i],
+                                           newInputArray[j + 1][i],
+                                           newInputArray[j + 2][i]];
+            NSArray<NSNumber *> *sortedSides = [sides sortedArrayUsingSelector: @selector(compare:)];
+            if (sortedSides[0].integerValue + sortedSides[1].integerValue > sortedSides[2].integerValue) {
+                possibleCount += 1;
+            }
         }
     }
     
