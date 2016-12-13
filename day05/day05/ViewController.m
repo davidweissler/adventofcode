@@ -11,35 +11,42 @@
 
 @interface ViewController ()
 
+@property (nonatomic) NSNumberFormatter *numberFormatter;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad];    
     [self day5];
 }
 
 - (void)day5 {
     NSString *doorId = @"ojvtpuvg";
-    NSString *password = @"";
+    NSMutableArray<NSString *> *password = @[@".",@".",@".",@".",@".",@".",@".",@"."].mutableCopy;
+    NSUInteger counter = 0;
     for (NSUInteger i = 0; i < INT_MAX; i++) {
         NSString *append = [NSString stringWithFormat:@"%lu", (unsigned long)i];
         NSString *fullDoor = [doorId stringByAppendingString:append];
         NSString *md5 = [self md5:fullDoor];
         if ([[md5 substringToIndex:5] isEqualToString:@"00000"]) {
-            NSLog(@"%@", md5);
             NSString *c = [md5 substringWithRange:NSMakeRange(5, 1)];
-            password = [password stringByAppendingString:c];
+            NSNumber *num = [self numberFromString:c];
+            if (num && num.integerValue < 8 && [password[num.integerValue] isEqualToString:@"."]) {
+                password[num.integerValue] = [md5 substringWithRange:NSMakeRange(6,1)];
+                NSLog(@"password: %@", [password componentsJoinedByString:@""]);
+                counter++;
+            }
         }
-        if (password.length == 8) {
+        if (counter == 8) {
             break;
         }
     }
-    NSLog(@"password: %@", password);
+    NSLog(@"password: %@", [password componentsJoinedByString:@""]);
 }
 
-- (NSString *) md5:(NSString *) input {
+- (NSString *)md5:(NSString *) input {
     const char *cStr = [input UTF8String];
     unsigned char digest[16];
     CC_MD5( cStr, strlen(cStr), digest ); // This is the md5 call
@@ -51,6 +58,17 @@
     }
     
     return  output;
+}
+
+#pragma mark - Common Helper Methods
+
+// NSString -> NSNumber
+- (NSNumber *)numberFromString:(NSString *)input {
+    if (!self.numberFormatter) {
+        self.numberFormatter = [[NSNumberFormatter alloc] init];
+        self.numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    }
+    return [self.numberFormatter numberFromString:input];
 }
 
 @end
