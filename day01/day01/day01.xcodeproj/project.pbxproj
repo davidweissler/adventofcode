@@ -14,7 +14,6 @@
 		61350CF51DFF911A00E7CEB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61350CF41DFF911A00E7CEB4 /* Assets.xcassets */; };
 		61350CF81DFF911A00E7CEB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61350CF61DFF911A00E7CEB4 /* LaunchScreen.storyboard */; };
 		61350D001DFF917C00E7CEB4 /* input.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61350CFF1DFF917B00E7CEB4 /* input.txt */; };
-		61350D021DFF918E00E7CEB4 /* testinput.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61350D011DFF918E00E7CEB4 /* testinput.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 		61350CF71DFF911A00E7CEB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		61350CF91DFF911A00E7CEB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61350CFF1DFF917B00E7CEB4 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
-		61350D011DFF918E00E7CEB4 /* testinput.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testinput.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +63,6 @@
 				61350CEB1DFF911A00E7CEB4 /* AppDelegate.h */,
 				61350CEC1DFF911A00E7CEB4 /* AppDelegate.m */,
 				61350CFF1DFF917B00E7CEB4 /* input.txt */,
-				61350D011DFF918E00E7CEB4 /* testinput.txt */,
 				61350CEE1DFF911A00E7CEB4 /* ViewController.h */,
 				61350CEF1DFF911A00E7CEB4 /* ViewController.m */,
 				61350CF11DFF911A00E7CEB4 /* Main.storyboard */,
@@ -143,7 +140,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61350D021DFF918E00E7CEB4 /* testinput.txt in Resources */,
 				61350CF81DFF911A00E7CEB4 /* LaunchScreen.storyboard in Resources */,
 				61350CF51DFF911A00E7CEB4 /* Assets.xcassets in Resources */,
 				61350CF31DFF911A00E7CEB4 /* Main.storyboard in Resources */,
