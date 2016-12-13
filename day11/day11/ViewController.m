@@ -9,9 +9,11 @@
 #import "ViewController.h"
 
 @interface Node : NSObject
+
 @property (nonatomic) NSUInteger floor;
-@property (nonatomic) NSMutableArray<NSMutableArray<NSString *> *> *currentState;
+@property (nonatomic) NSString *currentState;
 @property (nonatomic) NSUInteger stepCount;
+
 @end
 
 @implementation Node
@@ -21,27 +23,30 @@
 @interface ViewController ()
 @property (nonatomic) NSNumberFormatter *numberFormatter;
 @property (nonatomic) NSMutableSet *seenSet;
+@property (nonatomic) NSUInteger floorCount;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self day11];
+    [self day11Part:2];
 }
 
-- (NSMutableArray<NSMutableArray<NSString *> *> *)inputArray {
-    return @[@[@"A", @"a", @".", @".", @".", @".", @".", @".", @".", @"."].mutableCopy,
-             @[@".", @".", @"B", @".", @"C", @".", @"D", @".", @"E", @"."].mutableCopy,
-             @[@".", @".", @".", @"b", @".", @"c", @".", @"d", @".", @"e"].mutableCopy,
-             @[@".", @".", @".", @".", @".", @".", @".", @".", @".", @"."].mutableCopy].mutableCopy;
-    
+- (NSMutableString *)inputPart1 {
+    return @"Aa..........B.C.D.E....b.c.d.e..........".mutableCopy;
 }
 
-- (void)day11 {
+- (NSMutableString *)inputPart2 {
+    //    return @".............g............................AaBbCcDdEeFfG.".mutableCopy;
+    return @"Aa........FfGg..B.C.D.E........b.c.d.e..................".mutableCopy;
+}
+
+- (void)day11Part:(NSUInteger)part {
+    self.floorCount = part == 1 ? 10 : 14;
     self.seenSet = [NSMutableSet set];
     
-    NSMutableArray<NSMutableArray<NSString *> *> *initialState = [self inputArray];
+    NSMutableString *initialState = part == 1 ? [self inputPart1] : [self inputPart2];
     
     Node *rootNode = [Node new];
     rootNode.floor = 0;
@@ -50,13 +55,13 @@
     
     printf("Root state: \n");
     [self printArray:initialState];
-    printf("\n");
     
     NSMutableArray *nodeQueue = @[rootNode].mutableCopy;
     while (nodeQueue.count > 0) {
         Node *node = nodeQueue.firstObject;
+        printf("step count: %lu\n", (unsigned long)node.stepCount);
         [self printArray:node.currentState];
-        BOOL isFinalState = [self isFinalStateForArray:node.currentState.lastObject];
+        BOOL isFinalState = part == 1 ? [self isFinalStatePart1ForString:node.currentState] : [self isFinalStatePart2ForString:node.currentState];
         if (isFinalState) {
             printf("final state step count: %lu\n", (unsigned long)node.stepCount);
             break;
@@ -71,26 +76,15 @@
     printf("COMPLETED");
 }
 
-- (NSString *)nodeAsString:(Node *)node {
-    NSMutableString *nodeString = @"".mutableCopy;
-    for (NSArray<NSString*> *floor in node.currentState) {
-        [floor componentsJoinedByString:@""];
-        [nodeString appendString:[floor componentsJoinedByString:@""]];
+- (BOOL)isFinalStatePart1ForString:(NSString *)input {
+    if ([input isEqualToString:@"..............................AaBbCcDdEe"]) {
+        return YES;
     }
-    return nodeString;
+    return NO;
 }
 
-- (BOOL)isFinalStateForArray:(NSMutableArray<NSString *> *)array {
-    if ([array[0] isEqualToString:@"A"] &&
-        [array[1] isEqualToString:@"a"] &&
-        [array[2] isEqualToString:@"B"] &&
-        [array[3] isEqualToString:@"b"] &&
-        [array[4] isEqualToString:@"C"] &&
-        [array[5] isEqualToString:@"c"] &&
-        [array[6] isEqualToString:@"D"] &&
-        [array[7] isEqualToString:@"d"] &&
-        [array[8] isEqualToString:@"E"] &&
-        [array[9] isEqualToString:@"e"]) {
+- (BOOL)isFinalStatePart2ForString:(NSString *)input {
+    if ([input isEqualToString:@"..........................................AaBbCcDdEeFfGg"]) {
         return YES;
     }
     return NO;
@@ -100,8 +94,9 @@
     NSMutableSet<Node *> *possibleNodes = [NSMutableSet set];
     NSUInteger currentFloor = node.floor;
     
-    for (NSUInteger i = 0; i < node.currentState[0].count; i++) {
-        NSMutableString *firstElement = node.currentState[currentFloor][i].mutableCopy;
+    for (NSUInteger i = 0; i < self.floorCount; i++) {
+        NSMutableString *floorString = [node.currentState substringWithRange:NSMakeRange(currentFloor * self.floorCount, self.floorCount)].mutableCopy;
+        NSMutableString *firstElement = [floorString substringWithRange:NSMakeRange(i, 1)].mutableCopy;
         if ([firstElement isEqualToString:@"."]) {
             continue;
         }
@@ -116,27 +111,18 @@
         }
         
         for (NSNumber *offset in floorOffset) {
-            NSMutableArray<NSMutableArray<NSString *> *> *newState = @[].mutableCopy;
-            // copy initial state to new state
-            for (NSArray *floor in node.currentState) {
-                NSMutableArray *newFloor = @[].mutableCopy;
-                for (NSString *e in floor) {
-                    [newFloor addObject:e.mutableCopy];
-                }
-                [newState addObject:newFloor];
-            }
-            
+            NSMutableString *newState = node.currentState.mutableCopy;
             Node *newNode = [Node new];
             NSUInteger newFloor = node.floor + offset.integerValue;
             newNode.floor = newFloor;
             newNode.stepCount = node.stepCount + 1;
-            newState[newFloor][i] = firstElement;
-            newState[currentFloor][i] = @".";
+            [newState replaceCharactersInRange:NSMakeRange(newFloor * self.floorCount + i, 1) withString:firstElement];
+            [newState replaceCharactersInRange:NSMakeRange(currentFloor * self.floorCount + i, 1) withString:@"."];
             newNode.currentState = newState;
             [possibleNodes addObject:newNode];
-            if (i < node.currentState[0].count - 1) {
-                for (NSUInteger j = i + 1; j < node.currentState[0].count; j++) {
-                    NSMutableString *secondElement = node.currentState[currentFloor][j].mutableCopy;
+            if (i < self.floorCount - 1) {
+                for (NSUInteger j = i + 1; j < self.floorCount; j++) {
+                    NSMutableString *secondElement = [floorString substringWithRange:NSMakeRange(j, 1)].mutableCopy;
                     if ([secondElement isEqualToString:@"."]) {
                         continue;
                     }
@@ -144,19 +130,11 @@
                     Node *newNode2 = [Node new];
                     newNode2.floor = newFloor;
                     newNode2.stepCount = node.stepCount + 1;
-                    NSMutableArray<NSMutableArray<NSString *> *> *newState2 = @[].mutableCopy;
-                    for (NSArray *floor in node.currentState) {
-                        NSMutableArray *newFloor = @[].mutableCopy;
-                        for (NSString *e in floor) {
-                            [newFloor addObject:e.mutableCopy];
-                        }
-                        [newState2 addObject:newFloor];
-                    }
-                    
-                    newState2[newFloor][i] = firstElement;
-                    newState2[newFloor][j] = secondElement;
-                    newState2[currentFloor][i] = @".";
-                    newState2[currentFloor][j] = @".";
+                    NSMutableString *newState2 = node.currentState.mutableCopy;
+                    [newState2 replaceCharactersInRange:NSMakeRange(newFloor * self.floorCount + i, 1) withString:firstElement];
+                    [newState2 replaceCharactersInRange:NSMakeRange(newFloor * self.floorCount + j, 1) withString:secondElement];
+                    [newState2 replaceCharactersInRange:NSMakeRange(currentFloor * self.floorCount + i, 1) withString:@"."];
+                    [newState2 replaceCharactersInRange:NSMakeRange(currentFloor * self.floorCount + j, 1) withString:@"."];
                     newNode2.currentState = newState2;
                     [possibleNodes addObject:newNode2];
                 }
@@ -167,9 +145,9 @@
     NSMutableArray<Node *> *nextNodes = @[].mutableCopy;
     [possibleNodes enumerateObjectsUsingBlock:^(Node * _Nonnull obj, BOOL * _Nonnull stop) {
         if ([self isStateValid:obj.currentState]) {
-            NSString *nodeAsString = [[self nodeAsString:obj] stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)obj.floor]];
-            if (![self.seenSet containsObject:nodeAsString]) {
-                [self.seenSet addObject:nodeAsString];
+            NSString *seenKey = [obj.currentState stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)obj.floor]];
+            if (![self.seenSet containsObject:seenKey]) {
+                [self.seenSet addObject:seenKey];
                 [nextNodes addObject:obj];
             }
         }
@@ -177,10 +155,11 @@
     return nextNodes;
 }
 
-
-- (void)printArray:(NSArray<NSArray<NSString *> *> *)array {
-    for (NSArray *floor in array) {
-        for (NSString *element in floor) {
+- (void)printArray:(NSString *)input {
+    for (NSUInteger i = 0; i < 4; i++) {
+        for (NSUInteger j = 0; j < self.floorCount; j++) {
+            NSUInteger index = i * self.floorCount + j;
+            NSString *element = [input substringWithRange:NSMakeRange(index, 1)];
             printf("%c ", [element characterAtIndex:0]);
         }
         printf("\n");
@@ -188,22 +167,15 @@
     printf("\n");
 }
 
-- (NSUInteger)moveableItemsOnFloor:(NSArray<NSString *> *)floor {
-    NSUInteger counter = 0;
-    for (NSString *element in floor) {
-        if (![element isEqualToString:@"."]) {
-            counter++;
-        }
-    }
-    return counter;
-}
 
-- (BOOL)isStateValid:(NSArray<NSArray<NSString *> *> *)stateArray {
-    NSSet *cautionSet = [NSSet setWithArray:@[@"a", @"b", @"c", @"d", @"e"]];
-    for (NSArray<NSString *> *floor in stateArray) {
-        for (NSString *floorElement in floor) {
-            if ([cautionSet containsObject:floorElement]) {
-                if (![self safeForElement:floorElement floor:floor]) {
+- (BOOL)isStateValid:(NSString *)state {
+    NSSet *cautionSet = self.floorCount == 10 ? [NSSet setWithArray:@[@"a", @"b", @"c", @"d", @"e"]] : [NSSet setWithArray:@[@"a", @"b", @"c", @"d", @"e", @"f", @"g"]];
+    for (NSUInteger i = 0; i < 4; i++) {
+        NSString *floor = [state substringWithRange:NSMakeRange(i * self.floorCount, self.floorCount)];
+        for (NSUInteger j = 0; j < floor.length; j++) {;
+            NSString *element = [floor substringWithRange:NSMakeRange(j, 1)];
+            if ([cautionSet containsObject:element]) {
+                if (![self safeForElement:element floor:floor]) {
                     return NO;
                 }
             }
@@ -212,19 +184,18 @@
     return YES;
 }
 
-- (BOOL)safeForElement:(NSString *)element floor:(NSArray<NSString *> *)floor {
-    NSString *floorString = [floor componentsJoinedByString:@""];
-    
-    if (![floorString containsString:element]) {
+- (BOOL)safeForElement:(NSString *)element floor:(NSString *)floor {
+    if (![floor containsString:element]) {
         return YES;
     }
     
-    if ([floorString containsString:element.uppercaseString]) {
+    if ([floor containsString:element.uppercaseString]) {
         return YES;
     }
     
-    NSSet *dangerSet = [NSSet setWithArray:@[@"A", @"B", @"C", @"D", @"E"]];
-    for (NSString *floorElement in floor) {
+    NSSet *dangerSet = self.floorCount == 10 ? [NSSet setWithArray:@[@"A", @"B", @"C", @"D", @"E"]] : [NSSet setWithArray:@[@"A", @"B", @"C", @"D", @"E", @"F", @"G"]];
+    for (NSUInteger i = 0; i < floor.length; i++) {
+        NSString *floorElement = [floor substringWithRange:NSMakeRange(i, 1)];
         if ([dangerSet containsObject:floorElement]) {
             return NO;
         }
