@@ -98,6 +98,27 @@
         }
     }
     NSLog(@"Total: %lu", (unsigned long)sectorIdTotal);
+
+    [realRooms enumerateKeysAndObjectsUsingBlock:^(NSString *roomName, NSNumber *sectorNumber, BOOL * _Nonnull stop) {
+        NSString *decrypted = @"";
+        for (int i = 0; i < roomName.length; i++) {
+            unichar roomChar = [roomName characterAtIndex:i];
+            if (roomChar == '-') {
+                decrypted = [decrypted stringByAppendingString:@" "];
+                continue;
+            } else {
+                unichar modded = sectorNumber.integerValue % 26;
+                roomChar += modded;
+                if (roomChar > 122) {
+                    roomChar -= 26;
+                }
+                decrypted = [decrypted stringByAppendingString:[NSString stringWithFormat:@"%c", roomChar]];
+            }
+        }
+        if ([decrypted containsString:@"north"]) {
+            NSLog(@"decrypted:%@, %@", decrypted, sectorNumber);
+        }
+    }];
 }
 
 - (NSString *) md5:(NSString *) input
