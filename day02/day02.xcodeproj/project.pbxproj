@@ -13,6 +13,7 @@
 		61350D1A1DFF975F00E7CEB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61350D181DFF975F00E7CEB4 /* Main.storyboard */; };
 		61350D1C1DFF975F00E7CEB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61350D1B1DFF975F00E7CEB4 /* Assets.xcassets */; };
 		61350D1F1DFF975F00E7CEB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61350D1D1DFF975F00E7CEB4 /* LaunchScreen.storyboard */; };
+		61350D271DFF97E100E7CEB4 /* input.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61350D261DFF97E100E7CEB4 /* input.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		61350D1B1DFF975F00E7CEB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61350D1E1DFF975F00E7CEB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		61350D201DFF975F00E7CEB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61350D261DFF97E100E7CEB4 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				61350D121DFF975F00E7CEB4 /* AppDelegate.h */,
 				61350D131DFF975F00E7CEB4 /* AppDelegate.m */,
+				61350D261DFF97E100E7CEB4 /* input.txt */,
 				61350D151DFF975F00E7CEB4 /* ViewController.h */,
 				61350D161DFF975F00E7CEB4 /* ViewController.m */,
 				61350D181DFF975F00E7CEB4 /* Main.storyboard */,
@@ -140,6 +143,7 @@
 				61350D1F1DFF975F00E7CEB4 /* LaunchScreen.storyboard in Resources */,
 				61350D1C1DFF975F00E7CEB4 /* Assets.xcassets in Resources */,
 				61350D1A1DFF975F00E7CEB4 /* Main.storyboard in Resources */,
+				61350D271DFF97E100E7CEB4 /* input.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
