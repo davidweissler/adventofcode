@@ -29,14 +29,16 @@ struct ArrayLoc {
 
 - (void)day2 {
     NSArray<NSString *> *inputArray = [self inputAsArray];
-    NSArray<NSArray <NSString *> *> *console = @[@[@" ", @" ", @" ", @" ", @" "],
-                                                 @[@" ", @"1", @"2", @"3", @" "],
-                                                 @[@" ", @"4", @"5", @"6", @" "],
-                                                 @[@" ", @"7", @"8", @"9", @" "],
-                                                 @[@" ", @" ", @" ", @" ", @" "]];
+    NSArray<NSArray <NSString *> *> *console = @[@[@" ", @" ", @" ", @" ", @" ", @" ", @" "],
+                                                 @[@" ", @" ", @" ", @"1", @" ", @" ", @" "],
+                                                 @[@" ", @" ", @"2", @"3", @"4", @" ", @" "],
+                                                 @[@" ", @"5", @"6", @"7", @"8", @"9", @" "],
+                                                 @[@" ", @" ", @"A", @"B", @"C", @" ", @" "],
+                                                 @[@" ", @" ", @" ", @"D", @" ", @" ", @" "],
+                                                 @[@" ", @" ", @" ", @" ", @" ", @" ", @" "]];
     struct ArrayLoc location;
-    location.row = 2;
-    location.column = 2;
+    location.row = 3;
+    location.column = 1;
     
     NSMutableString *key = @"".mutableCopy;
     
