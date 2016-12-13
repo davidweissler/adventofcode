@@ -23,15 +23,21 @@
 
 - (void)day1 {
     NSString *input = [self inputAsArray][0];
-
+    
     NSArray<NSString *> *inputArray = [input componentsSeparatedByString:@", "];
     CGPoint location = CGPointZero;
     NSString *previousMove = @"";
-
+    
+    NSMutableSet *visitedPoints = [NSMutableSet set];
+    CGPoint firstPlaceVisited = CGPointZero;
+    BOOL found = NO;
+    
     for (NSString *command in inputArray) {
         NSString *direction = [command substringToIndex:1];
         NSString *distanceStr = [command stringByReplacingOccurrencesOfString:direction withString:@""];
         NSNumber *distance = [self numberFromString:distanceStr];
+        
+        CGPoint previousLocation = location;
         
         // First Move or Up
         if ([previousMove isEqualToString:@""] || [previousMove isEqualToString:@"up"]) {
@@ -73,9 +79,63 @@
                 previousMove = @"left";
             }
         }
+        
+        if (!found) {
+            if (previousLocation.x == location.x) {
+                // moving along Y axis
+                if (previousLocation.y < location.y) {
+                    for (NSInteger i = previousLocation.y + 1; i <= location.y; i++) {
+                        NSValue *pointAsValue = [NSValue valueWithCGPoint:CGPointMake(location.x, i)];
+                        if (!found && [visitedPoints containsObject:pointAsValue]) {
+                            firstPlaceVisited = pointAsValue.CGPointValue;
+                            found = YES;
+                        } else {
+                            [visitedPoints addObject:pointAsValue];
+                        }
+                    }
+                }
+                else {
+                    for (NSInteger i = location.y; i < previousLocation.y; i++) {
+                        NSValue *pointAsValue = [NSValue valueWithCGPoint:CGPointMake(location.x, i)];
+                        if (!found && [visitedPoints containsObject:pointAsValue]) {
+                            firstPlaceVisited = pointAsValue.CGPointValue;
+                            found = YES;
+                        } else {
+                            [visitedPoints addObject:pointAsValue];
+                        }
+                    }
+                }
+            }
+            else {
+                // moving along X axis
+                if (previousLocation.x < location.x) {
+                    for (NSInteger i = previousLocation.x + 1; i <= location.x; i++) {
+                        NSValue *pointAsValue = [NSValue valueWithCGPoint:CGPointMake(i, location.y)];
+                        if (!found && [visitedPoints containsObject:pointAsValue]) {
+                            firstPlaceVisited = pointAsValue.CGPointValue;
+                            found = YES;
+                        } else {
+                            [visitedPoints addObject:pointAsValue];
+                        }
+                    }
+                }
+                else {
+                    for (NSInteger i = location.x; i < previousLocation.x; i++) {
+                        NSValue *pointAsValue = [NSValue valueWithCGPoint:CGPointMake(i, location.y)];
+                        if (!found && [visitedPoints containsObject:pointAsValue]) {
+                            firstPlaceVisited = pointAsValue.CGPointValue;
+                            found = YES;
+                        } else {
+                            [visitedPoints addObject:pointAsValue];
+                        }
+                    }
+                }
+            }
+        }
     }
-
+    
     NSLog(@"result: %f", fabs(location.x) + fabs(location.y));
+    NSLog(@"visitedTwice: %f", fabs(firstPlaceVisited.x) + fabs(firstPlaceVisited.y));
 }
 
 #pragma mark - Common Helper Methods
