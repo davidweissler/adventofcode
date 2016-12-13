@@ -26,7 +26,7 @@
     NSString *registerIds = @"abcd";
     NSMutableDictionary<NSString *, NSNumber *> *registers = @{@"a" : @0,
                                                                @"b" : @0,
-                                                               @"c" : @0,
+                                                               @"c" : @1,
                                                                @"d" : @0}.mutableCopy;
     for (NSUInteger i = 0; i < inputArray.count; i++) {
         NSArray<NSString *> *lineArray = [inputArray[i] componentsSeparatedByString:@" "];
