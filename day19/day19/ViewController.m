@@ -56,12 +56,31 @@
     
     // Start the game
     current = first;
-    while (current.nextNode && current.nextNode != current) {
-        // NSLog(@"%lu steals %lu", current.position, current.nextNode.position);
-        current.count += current.nextNode.count;
-        current.nextNode = current.nextNode.nextNode;
+    Node *halfwayElf = current.nextNode;
+    Node *preHalfwarElf = nil;
+    NSUInteger oppositeElfPosition = elvesCount/2;
+    for (NSUInteger i = 1; i < oppositeElfPosition; i++) {
+        if (i == oppositeElfPosition - 1) {
+            preHalfwarElf = halfwayElf;
+        }
+        halfwayElf = halfwayElf.nextNode;
+    }
+    
+    while (halfwayElf != current) {
+        // NSLog(@"%lu steals %lu", current.position, halfwayElf.position);
+        preHalfwarElf.nextNode = halfwayElf.nextNode;
+        halfwayElf = halfwayElf.nextNode;
+        
+        elvesCount--;
+        
+        if (elvesCount % 2 == 0) {
+            halfwayElf = halfwayElf.nextNode;
+            preHalfwarElf = preHalfwarElf.nextNode;
+        }
+        
         current = current.nextNode;
     }
+    
     NSLog(@"last node position: %lu", current.position);
 }
 
