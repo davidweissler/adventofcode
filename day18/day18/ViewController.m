@@ -26,7 +26,7 @@
     NSUInteger numberOfSafeTiles = 0;
     numberOfSafeTiles += [self numberOfOccurencesOfString:@"." inInput:input];
     
-    for (int j = 1; j < 40; j++) {
+    for (int j = 1; j < 400000; j++) {
         NSMutableString *newLine = @"".mutableCopy;
         for (NSUInteger i = 0; i < input.length; i++) {
             BOOL isLeftTrap = i == 0 ? NO : [[input substringWithRange:NSMakeRange(i-1, 1)] isEqualToString:@"^"];
