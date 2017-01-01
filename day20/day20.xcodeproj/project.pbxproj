@@ -13,6 +13,8 @@
 		610A18651E18B732003C6A52 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 610A18631E18B732003C6A52 /* Main.storyboard */; };
 		610A18671E18B732003C6A52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 610A18661E18B732003C6A52 /* Assets.xcassets */; };
 		610A186A1E18B732003C6A52 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 610A18681E18B732003C6A52 /* LaunchScreen.storyboard */; };
+		610A18721E18B78C003C6A52 /* input.txt in Resources */ = {isa = PBXBuildFile; fileRef = 610A18711E18B78C003C6A52 /* input.txt */; };
+		610A18741E18B7B0003C6A52 /* testinput.txt in Resources */ = {isa = PBXBuildFile; fileRef = 610A18731E18B7B0003C6A52 /* testinput.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		610A18661E18B732003C6A52 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		610A18691E18B732003C6A52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		610A186B1E18B732003C6A52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		610A18711E18B78C003C6A52 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
+		610A18731E18B7B0003C6A52 /* testinput.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testinput.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 			children = (
 				610A185D1E18B732003C6A52 /* AppDelegate.h */,
 				610A185E1E18B732003C6A52 /* AppDelegate.m */,
+				610A18711E18B78C003C6A52 /* input.txt */,
+				610A18731E18B7B0003C6A52 /* testinput.txt */,
 				610A18601E18B732003C6A52 /* ViewController.h */,
 				610A18611E18B732003C6A52 /* ViewController.m */,
 				610A18631E18B732003C6A52 /* Main.storyboard */,
@@ -137,9 +143,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				610A18741E18B7B0003C6A52 /* testinput.txt in Resources */,
 				610A186A1E18B732003C6A52 /* LaunchScreen.storyboard in Resources */,
 				610A18671E18B732003C6A52 /* Assets.xcassets in Resources */,
 				610A18651E18B732003C6A52 /* Main.storyboard in Resources */,
+				610A18721E18B78C003C6A52 /* input.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
