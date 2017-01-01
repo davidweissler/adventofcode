@@ -45,8 +45,10 @@
             return NSOrderedDescending;
         }
     }];
-
+    
     NSMutableArray<Pair *> *merged = @[].mutableCopy;
+    NSUInteger ipCount = 0;
+    
     for (NSString *inputLine in input) {
         NSArray<NSString *> *lineArray = [inputLine componentsSeparatedByString:@"-"];
         Pair *currentPair = [Pair new];
@@ -60,15 +62,16 @@
         }
         
         if (currentPair.low > lastPair.high + 1) {
-            // [merged addObject:currentPair];
-            NSLog(@"lowest free IP: %lu", lastPair.high + 1);
-            break;
+            ipCount += currentPair.low - lastPair.high - 1;
+            [merged addObject:currentPair];
         } else {
             if (currentPair.high > lastPair.high) {
                 lastPair.high = currentPair.high;
             }
         }
     }
+    
+    NSLog(@"free IPs: %lu", ipCount);
 }
 
 
