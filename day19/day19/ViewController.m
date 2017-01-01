@@ -8,6 +8,17 @@
 
 #import "ViewController.h"
 
+@interface Node : NSObject
+
+@property (nonatomic) Node *nextNode;
+@property (nonatomic) NSUInteger count;
+@property (nonatomic) NSUInteger position;
+@end
+
+@implementation Node
+
+@end
+
 @interface ViewController ()
 
 @end
@@ -16,14 +27,42 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [self day19];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)day19 {
+    
+    NSUInteger elvesCount = 5; // test input
+    elvesCount = 3004953; // part 1 input
+    
+    // Create all nodes
+    Node *first = [Node new];
+    first.count = 1;
+    first.position = 1;
+    
+    Node *current = first;
+    
+    for (NSUInteger i = 1; i < elvesCount; i++) {
+        Node *next = [Node new];
+        next.count = 1;
+        next.position = current.position + 1;
+        current.nextNode = next;
+        
+        if (i == elvesCount - 1) {
+            next.nextNode = first;
+        }
+        current = next;
+    }
+    
+    // Start the game
+    current = first;
+    while (current.nextNode && current.nextNode != current) {
+        // NSLog(@"%lu steals %lu", current.position, current.nextNode.position);
+        current.count += current.nextNode.count;
+        current.nextNode = current.nextNode.nextNode;
+        current = current.nextNode;
+    }
+    NSLog(@"last node position: %lu", current.position);
 }
-
 
 @end
