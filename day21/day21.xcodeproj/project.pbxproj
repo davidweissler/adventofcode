@@ -13,6 +13,7 @@
 		61F33EB51E1AE054003960A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61F33EB31E1AE054003960A1 /* Main.storyboard */; };
 		61F33EB71E1AE055003960A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61F33EB61E1AE055003960A1 /* Assets.xcassets */; };
 		61F33EBA1E1AE055003960A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61F33EB81E1AE055003960A1 /* LaunchScreen.storyboard */; };
+		61F33EC21E1AE0B6003960A1 /* input.txt in Resources */ = {isa = PBXBuildFile; fileRef = 61F33EC11E1AE0B6003960A1 /* input.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		61F33EB61E1AE055003960A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61F33EB91E1AE055003960A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		61F33EBB1E1AE055003960A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61F33EC11E1AE0B6003960A1 /* input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = input.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				61F33EAD1E1AE054003960A1 /* AppDelegate.h */,
 				61F33EAE1E1AE054003960A1 /* AppDelegate.m */,
+				61F33EC11E1AE0B6003960A1 /* input.txt */,
 				61F33EB01E1AE054003960A1 /* ViewController.h */,
 				61F33EB11E1AE054003960A1 /* ViewController.m */,
 				61F33EB31E1AE054003960A1 /* Main.storyboard */,
@@ -140,6 +143,7 @@
 				61F33EBA1E1AE055003960A1 /* LaunchScreen.storyboard in Resources */,
 				61F33EB71E1AE055003960A1 /* Assets.xcassets in Resources */,
 				61F33EB51E1AE054003960A1 /* Main.storyboard in Resources */,
+				61F33EC21E1AE0B6003960A1 /* input.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
