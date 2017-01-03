@@ -22,10 +22,11 @@
 }
 
 - (void)day21 {
-    self.originalString = @"abcdefgh".mutableCopy;
+    self.originalString = @"fbgdceah".mutableCopy;
     
     NSArray<NSString *> *inputArray = [self inputAsArray];
-    for (NSString *inputLine in inputArray) {
+    for (NSInteger i = (NSInteger)inputArray.count - 1; i >= 0; i--) {
+        NSString *inputLine = inputArray[i];
         NSArray<NSString *> *parsedLine = [inputLine componentsSeparatedByString:@" "];
         if ([parsedLine[0] isEqualToString:@"swap"]) {
             if ([parsedLine[1] isEqualToString:@"position"]) {
@@ -50,7 +51,7 @@
             else {
                 // rotate left/right X steps
                 NSInteger amt =  [self numberFromString:parsedLine[2]].integerValue;
-                if ([parsedLine[1] isEqualToString:@"right"]) {
+                if ([parsedLine[1] isEqualToString:@"left"]) {
                     amt *= -1;
                 }
                 [self rotateByAmount:amt];
@@ -66,8 +67,8 @@
         
         if ([parsedLine[0] isEqualToString:@"move"]) {
             // move position X to position Y
-            NSUInteger pos1 = [self numberFromString:parsedLine[2]].unsignedIntegerValue;
-            NSUInteger pos2 = [self numberFromString:parsedLine[5]].unsignedIntegerValue;
+            NSUInteger pos1 = [self numberFromString:parsedLine[5]].unsignedIntegerValue;
+            NSUInteger pos2 = [self numberFromString:parsedLine[2]].unsignedIntegerValue;
             [self movePosition:pos1 position:pos2];
         }
         NSLog(@"%@: %@", inputLine, self.originalString);
@@ -137,9 +138,17 @@
 
 - (void)rotateBasedOnLetter:(NSString *)letter {
     NSInteger idx = (NSInteger)[self.originalString rangeOfString:letter].location;
-    idx += idx >= 4 ? 1 : 0;
-    idx++;
-    [self rotateByAmount:(-1 * idx)];
+    if (idx == 0) {
+        [self rotateByAmount:1];
+        return;
+    }
+    
+    NSInteger extra = idx % 2 == 0 ? 4 : 0;
+    extra++;
+    idx /= 2;
+    idx += extra;
+    
+    [self rotateByAmount:idx];
 }
 
 #pragma mark - Common Helper Methods
