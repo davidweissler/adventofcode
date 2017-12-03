@@ -1,2 +1,2 @@
-# adventofcode2016
-Advent of Code - 2016
+# adventofcode
+Advent of Code
