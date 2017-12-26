@@ -63,7 +63,42 @@ func processInput1(input: String) -> Int {
     return movesCount
 }
 
+func processInput2(input: String) -> Int {
+    var movesCount = 0
+    var inputArray : [Int] = []
+    input.split(separator: " ").forEach{ s in
+        inputArray.append(Int(s)!)
+    }
+    var cache = Set<String>()
+    
+    var foundLoop = 0
+    while foundLoop != 2 {
+        let arrayString = inputArray.string()
+        if cache.contains(arrayString) {
+            cache.removeAll()
+            foundLoop += 1
+        } else {
+            cache.insert(inputArray.string())
+            var index = indexToUse(input: inputArray)
+            var value = inputArray[index]
+            inputArray[index] = 0
+            while value > 0 {
+                index += 1
+                if index >= inputArray.count { index = 0 }
+                inputArray[index] += 1
+                value -= 1
+            }
+            if foundLoop > 0 {
+                movesCount += 1
+            }
+            
+        }
+    }
+    
+    return movesCount
+}
+
 if let input = readInput() {
-    print(processInput1(input: input))
+    print(processInput2(input: input))
 }
 
