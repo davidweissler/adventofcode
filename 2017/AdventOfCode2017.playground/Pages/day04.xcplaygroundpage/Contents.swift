@@ -30,9 +30,29 @@ func processInput1(input: String) -> Int {
     return validPassphrases
 }
 
+func processInput2(input: String) -> Int {
+    var validPassphrases = 0
+    input.split(separator: "\n").forEach { passphrase in
+        var cache = Set<Substring>()
+        var isValid = true
+        passphrase.split(separator: " ").forEach({ word in
+            let sortedWord = Substring(word.sorted())
+            if !cache.contains(sortedWord) {
+                cache.insert(sortedWord)
+            } else {
+                isValid = false
+                return
+            }
+        })
+        if isValid { validPassphrases += 1 }
+    }
+
+    return validPassphrases
+}
+
 
 let input = readInput()
 if let input = input {
-    print(processInput1(input: input))
+    print(processInput2(input: input))
 }
 
