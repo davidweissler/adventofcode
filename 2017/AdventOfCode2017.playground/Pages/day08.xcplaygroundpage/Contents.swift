@@ -80,6 +80,78 @@ func processInput1(input: String) {
     print(maxValue)
 }
 
+func processInput2(input: String) {
+    var registers = [String : Int]()
+    
+    var localMax = 0
+    input.split(separator: "\n").forEach { s in
+        var line = s.split(separator: " ")
+        let regToUpdate = String(line[0])
+        let op = String(line[1])
+        let amt = Int(String(line[2]))!
+        let condReg = String(line[4])
+        let condComp = String(line[5])
+        let condCheck = Int(String(line[6]))!
+        
+        var condRegValue = 0
+        if let foundCondReg = registers[condReg] {
+            condRegValue = foundCondReg
+        } else {
+            registers[condReg] = 0
+        }
+        
+        var regValue = 0
+        if let regToUpdateVal = registers[regToUpdate] {
+            regValue = regToUpdateVal
+        } else {
+            registers[regToUpdate] = 0
+        }
+        
+        var newValue = 0
+        var shouldUpdate = false
+        if condComp == ">" {
+            if condRegValue > condCheck {
+                shouldUpdate = true
+                newValue = updateReg(op: op, diff: amt, val: registers[regToUpdate]!)
+            }
+        } else if condComp == ">=" {
+            if condRegValue >= condCheck {
+                shouldUpdate = true
+                newValue = updateReg(op: op, diff: amt, val: registers[regToUpdate]!)
+            }
+        } else if condComp == "<" {
+            if condRegValue < condCheck {
+                shouldUpdate = true
+                newValue = updateReg(op: op, diff: amt, val: registers[regToUpdate]!)
+            }
+        } else if condComp == "<=" {
+            if condRegValue <= condCheck {
+                shouldUpdate = true
+                newValue = updateReg(op: op, diff: amt, val: registers[regToUpdate]!)
+            }
+        } else if condComp == "==" {
+            if condRegValue == condCheck {
+                shouldUpdate = true
+                newValue = updateReg(op: op, diff: amt, val: registers[regToUpdate]!)
+            }
+        } else if condComp == "!=" {
+            if condRegValue != condCheck {
+                shouldUpdate = true
+                newValue = updateReg(op: op, diff: amt, val: registers[regToUpdate]!)
+            }
+        }
+        
+        if shouldUpdate {
+            registers[regToUpdate] = newValue
+            if newValue > localMax {
+                localMax = newValue
+            }
+        }
+    }
+    
+    print(localMax)
+}
+
 if let input = readInput() {
-    processInput1(input: input)
+    processInput2(input: input)
 }
