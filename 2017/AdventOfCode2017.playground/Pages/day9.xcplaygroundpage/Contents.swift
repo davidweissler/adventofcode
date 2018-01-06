@@ -33,7 +33,6 @@ func readInput() -> String? {
 
 func processInput1(input: String) {
     let stack: Stack = Stack()
-    var groupCount = 0
     var score = 0
     var isCanceled = false
     var isGarbage = false
@@ -43,25 +42,53 @@ func processInput1(input: String) {
             continue
         }
         isCanceled = i == "!"
-        
-        
+
         if isGarbage && i == ">" {  isGarbage = false }
         if isGarbage { continue }
         isGarbage = i == "<"
         
         if i == "}" && stack.peek() == "{" {
-            groupCount += 1
             stack.pop()
         }
         else if i == "{" || i == "}" {
             stack.push(i)
             score += stack.count()
         }
-        
     }
     print(score)
 }
 
+func processInput2(input: String) {
+    let stack: Stack = Stack()
+    var score = 0
+    var garbageCount = 0
+    var isCanceled = false
+    var isGarbage = false
+    for i in input {
+        if isCanceled {
+            isCanceled = false
+            continue
+        }
+        isCanceled = i == "!"
+
+        if isGarbage && i == ">" {  isGarbage = false }
+        if isGarbage {
+            if i != "!" { garbageCount += 1 }
+            continue
+        }
+        isGarbage = i == "<"
+        
+        if i == "}" && stack.peek() == "{" {
+            stack.pop()
+        }
+        else if i == "{" || i == "}" {
+            stack.push(i)
+            score += stack.count()
+        }
+    }
+    print(garbageCount)
+}
+
 if let input = readInput() {
-    processInput1(input: input)
+    processInput2(input: input)
 }
