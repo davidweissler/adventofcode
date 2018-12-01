@@ -20,9 +20,8 @@ func processInput1(_ input: String) {
 }
 
 func processInput2(_ input: String) {
-    let inputArr = input.components(separatedBy: "\n").map {  return Int($0) ?? 0 }
-    var seenFreq = [Int: Int]()
-    seenFreq[0] = 1
+    let inputArr = input.components(separatedBy: "\n").map { return Int($0) ?? 0 }
+    var seenFreq = [0: 1]
     var currFreq = 0
     var foundTwice = false
     while (!foundTwice) {
@@ -37,7 +36,6 @@ func processInput2(_ input: String) {
     }
     print(currFreq)
 }
-
 
 if let input = readInput() {
     processInput2(input)
