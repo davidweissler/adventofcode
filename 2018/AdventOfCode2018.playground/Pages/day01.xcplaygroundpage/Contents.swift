@@ -1,7 +1,6 @@
 //: Playground - noun: a place where people can play
 
-import UIKit
-
+import Foundation
 
 // Parsing funcs
 
@@ -13,14 +12,14 @@ func readInput() -> String? {
     return input
 }
 
-func processInput1(input: inout String) {
+func processInput1(_ input: String) {
     let inputArr = input.components(separatedBy: "\n")
         .map {  return Int($0) ?? 0 }
-    .reduce(0, +)
+        .reduce(0, +)
     print(inputArr)
 }
 
-func processInput2(input: inout String) {
+func processInput2(_ input: String) {
     let inputArr = input.components(separatedBy: "\n").map {  return Int($0) ?? 0 }
     var seenFreq = [Int: Int]()
     seenFreq[0] = 1
@@ -40,7 +39,7 @@ func processInput2(input: inout String) {
 }
 
 
-if var input = readInput() {
-    processInput2(input: &input)
+if let input = readInput() {
+    processInput2(input)
 }
 
