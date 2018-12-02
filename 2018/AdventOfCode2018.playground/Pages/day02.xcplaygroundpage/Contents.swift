@@ -23,6 +23,22 @@ func processInput1(_ input: String) {
     print(twoCount * threeCount)
 }
 
+func processInput2(_ input: String) {
+    let inputArr = input.components(separatedBy: "\n")
+    for i in 0..<inputArr.count {
+        for j in i + 1..<inputArr.count {
+            if (zip(inputArr[i], inputArr[j]).filter{ $0 != $1 }).count == 1 {
+                print("\(inputArr[i]) : \(inputArr[j])")
+                print(zip(inputArr[i], inputArr[j])
+                    .filter{ $0 == $1 }
+                    .map { String($0.0) }
+                    .joined())
+                return
+            }
+        }
+    }
+}
+
 if let input = readInput() {
-    processInput1(input)
+    processInput2(input)
 }
