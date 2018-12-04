@@ -20,6 +20,7 @@ func processInput1(_ input: String) {
         let strippedLine = line.replacingOccurrences(of: "[", with: "", options: .literal, range: nil)
             .replacingOccurrences(of: "]", with: "", options: .literal, range: nil)
             .replacingOccurrences(of: "#", with: "", options: .literal, range: nil)
+            .replacingOccurrences(of: "00:", with: "", options: .literal, range: nil)
         let parsedLine = strippedLine.components(separatedBy: " ")
         if parsedLine.count == 6 {
             // Get guard id
@@ -30,9 +31,9 @@ func processInput1(_ input: String) {
             sleepStart = 0
             sleepEnd = 0
         } else if parsedLine.last == "asleep" {
-            sleepStart = Int(parsedLine[1].replacingOccurrences(of: "00:", with: "", options: .literal, range: nil)) ?? 0
+            sleepStart = Int(parsedLine[1]) ?? 0
         } else if parsedLine.last == "up" {
-            sleepEnd = Int(parsedLine[1].replacingOccurrences(of: "00:", with: "", options: .literal, range: nil)) ?? 0
+            sleepEnd = Int(parsedLine[1]) ?? 0
             for i in sleepStart..<sleepEnd {
                 times[guardId]?[i] += 1
             }
@@ -63,6 +64,7 @@ func processInput2(_ input: String) {
         let strippedLine = line.replacingOccurrences(of: "[", with: "", options: .literal, range: nil)
             .replacingOccurrences(of: "]", with: "", options: .literal, range: nil)
             .replacingOccurrences(of: "#", with: "", options: .literal, range: nil)
+            .replacingOccurrences(of: "00:", with: "", options: .literal, range: nil)
         let parsedLine = strippedLine.components(separatedBy: " ")
         if parsedLine.count == 6 {
             // Get guard id
@@ -73,9 +75,9 @@ func processInput2(_ input: String) {
             sleepStart = 0
             sleepEnd = 0
         } else if parsedLine.last == "asleep" {
-            sleepStart = Int(parsedLine[1].replacingOccurrences(of: "00:", with: "", options: .literal, range: nil)) ?? 0
+            sleepStart = Int(parsedLine[1]) ?? 0
         } else if parsedLine.last == "up" {
-            sleepEnd = Int(parsedLine[1].replacingOccurrences(of: "00:", with: "", options: .literal, range: nil)) ?? 0
+            sleepEnd = Int(parsedLine[1]) ?? 0
             for i in sleepStart..<sleepEnd {
                 times[guardId]?[i] += 1
             }
