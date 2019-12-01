@@ -19,6 +19,23 @@ func processInput1(_ input: String) {
     print(inputArr)
 }
 
+func processInput2(_ input: String) {
+    let inputArr = input.components(separatedBy: "\n")
+        .map {
+            var initialFuel = ((Int($0) ?? 0) / 3) - 2
+            var additionalFuel = initialFuel
+            while additionalFuel > 0 {
+                additionalFuel = (additionalFuel / 3) - 2
+                if additionalFuel > 0 {
+                    initialFuel += additionalFuel
+                }
+            }
+            return initialFuel
+    }
+        .reduce(0,+)
+    print(inputArr)
+}
+
 if let input = readInput() {
     processInput1(input)
 }
