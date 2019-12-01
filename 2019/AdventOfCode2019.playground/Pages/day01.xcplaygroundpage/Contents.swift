@@ -37,6 +37,6 @@ func processInput2(_ input: String) {
 }
 
 if let input = readInput() {
-    processInput1(input)
+    processInput2(input)
 }
 
