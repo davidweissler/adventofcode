@@ -2,6 +2,6 @@
 <playground version='6.0' target-platform='macos'>
     <pages>
         <page name='day01'/>
-        <page name='Untitled Page'/>
+        <page name='day02'/>
     </pages>
 </playground>
