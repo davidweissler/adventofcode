@@ -13,8 +13,17 @@ func readInput() -> String? {
 }
 
 func processInput1(_ input: String) {
-    let inputArr = input.components(separatedBy: "\n")
-    print(inputArr)
+  let inputArr = input.components(separatedBy: "\n").map { Int($0)! }
+  var cache = Set<Int>()
+  for i in inputArr {
+    let needed = 2020 - i
+    if cache.contains(needed) {
+      print(needed * i)
+      break
+    } else {
+      cache.insert(i)
+    }
+  }
 }
 
 
