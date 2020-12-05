@@ -26,8 +26,41 @@ func processInput1(_ input: String) {
   }
 }
 
+struct Combo: Hashable {
+  let a: Int
+  let b: Int
+  var sum: Int {
+    get { return a + b }
+  }
+  var product: Int {
+    get { return a * b }
+  }
+  static func == (lhs: Combo, rhs: Combo) -> Bool {
+      return (lhs.a == rhs.a && lhs.b == rhs.b) || (lhs.a == rhs.b && lhs.b == rhs.a)
+  }
+}
+
+func processInput2(_ input: String) {
+  let inputArr = input.components(separatedBy: "\n").map { Int($0)! }
+  var cache = Set<Combo>()
+  var seen = Set<Int>()
+  
+  for i in inputArr {
+    if !seen.contains(i) {
+      for combo in cache {
+        if combo.sum + i == 2020 {
+          print(combo.product * i)
+          return
+        }
+      }
+
+      seen.forEach { cache.insert(Combo(a: i, b: $0)) }
+      seen.insert(i)
+    }
+  }
+}
 
 if let input = readInput() {
-    processInput1(input)
+    processInput2(input)
 }
 
