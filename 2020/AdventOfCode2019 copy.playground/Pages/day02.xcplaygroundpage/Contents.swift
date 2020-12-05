@@ -15,7 +15,7 @@ func readInput() -> String? {
 func processInput1(_ input: String) {
   // 1-3 a: abcde
   var validCount = 0
-  let inputArr = input.components(separatedBy: "\n").forEach {
+  input.components(separatedBy: "\n").forEach {
     let updated = $0.replacingOccurrences(of: "-", with: " ").replacingOccurrences(of: ":", with: "")
     let lineArr = updated.components(separatedBy: " ")
     let min = Int(lineArr[0])!
@@ -29,6 +29,23 @@ func processInput1(_ input: String) {
   print(validCount)
 }
 
+func processInput2(_ input: String) {
+  // 1-3 a: abcde
+  var validCount = 0
+  input.components(separatedBy: "\n").forEach {
+    let updated = $0.replacingOccurrences(of: "-", with: " ").replacingOccurrences(of: ":", with: "")
+    let lineArr = updated.components(separatedBy: " ")
+    let pos1 = Int(lineArr[0])! - 1
+    let pos2 = Int(lineArr[1])! - 1
+    let letter = lineArr[2]
+    let pass = lineArr[3].map { String($0) }
+    if (pass[pos1] == letter && pass[pos2] != letter) || (pass[pos1] != letter && pass[pos2] == letter) {
+      validCount += 1
+    }
+  }
+  print(validCount)
+}
+
 if let input = readInput() {
-    processInput1(input)
+    processInput2(input)
 }
