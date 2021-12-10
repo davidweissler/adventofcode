@@ -33,7 +33,33 @@ func processInput1(_ input: String) {
   print(depthSum * horizontalSum)
 }
 
+func processInput2(_ input: String) {
+  let inputArr = input.components(separatedBy: "\n").map { String($0) }
+
+  var horizon = 0
+  var depth = 0
+  var aim = 0
+  
+  inputArr.forEach { string in
+    let parse = string.components(separatedBy: " ")
+    let command = parse[0]
+    let num = Int(parse[1])!
+    
+    if command == "up" {
+      aim = aim - num
+    } else if command == "down" {
+      aim = aim + num
+    } else if command == "forward" {
+      horizon += num
+      depth = depth + (num * aim)
+    }
+  }
+  print("h: \(horizon)")
+  print("d: \(depth)")
+  print(horizon * depth)
+}
+
 if let input = readInput() {
-  processInput1(input)
+  processInput2(input)
 }
 
