@@ -23,7 +23,21 @@ func processInput1(_ input: String) {
   print(increaseCount)
 }
 
+func processInput2(_ input: String) {
+  let inputArr = input.components(separatedBy: "\n").map { Int($0)! }
+  var currentWindow = inputArr[0] + inputArr[1] + inputArr[2]
+  var increaseCount = 0
+  for i in 3..<inputArr.count {
+    let newWindow = inputArr[i] + inputArr[i - 1] + inputArr[i - 2]
+    if newWindow > currentWindow {
+      increaseCount += 1
+    }
+    currentWindow = newWindow
+  }
+  print(increaseCount)
+}
+
 if let input = readInput() {
-  processInput1(input)
+  processInput2(input)
 }
 
