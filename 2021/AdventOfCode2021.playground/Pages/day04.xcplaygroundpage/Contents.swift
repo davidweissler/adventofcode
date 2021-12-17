@@ -43,7 +43,7 @@ func processInput1(_ input: String) {
       board.forEach { newRow.append($0[i]) }
       newBoard.append(newRow)
     }
-    transBoards.append(board)
+    transBoards.append(newBoard)
   }
 
   var shouldContinue = true
@@ -138,8 +138,141 @@ func processInput1(_ input: String) {
   print("winning sum \(sum) * number \(winningNumber): \(sum * winningNumber)")
 }
 
+func processInput2(_ input: String) {
+  var inputArr = input.components(separatedBy: "\n").map { String($0) }
+  let drawNumbersString = inputArr.first!
+  let drawNumbersArr = drawNumbersString.components(separatedBy: ",").map { Int($0)! }
+  print(drawNumbersArr)
+  inputArr.removeFirst(2)
+  
+  // Create an array of boards
+  var boards = [[[Int]]]()
+  var board = [[Int]]()
+  for str in inputArr {
+    if str == "" {
+      boards.append(board)
+      board = [[Int]]()
+    } else {
+      let cleanStr = str.replacingOccurrences(of: "  ", with: " ").trimmingCharacters(in: .whitespaces)
+      let row = cleanStr.components(separatedBy: " ")
+      let rowNums = row.compactMap { Int($0)! }
+      board.append(rowNums)
+    }
+  }
+  // Add the last board
+  boards.append(board)
+
+  // Creare an array of transposed boards
+  var transBoards = [[[Int]]]()
+  
+  for board in boards {
+    var newBoard = [[Int]]()
+    for i in 0..<board[0].count {
+      var newRow = [Int]()
+      board.forEach { newRow.append($0[i]) }
+      newBoard.append(newRow)
+    }
+    transBoards.append(newBoard)
+  }
+
+  var lastBoard: [[Int]]?
+  var drawNumIdx = 0
+  while drawNumIdx < drawNumbersArr.count && lastBoard == nil {
+    let drawnNumber = drawNumbersArr[drawNumIdx]
+    print("drawing number \(drawnNumber)")
+    // mark the boards with the drawn number
+    
+    for board in 0..<boards.count {
+      for row in 0..<boards[board].count {
+        for val in 0..<boards[board][row].count {
+          if boards[board][row][val] == drawnNumber {
+            boards[board][row][val] = -1
+          }
+        }
+      }
+    }
+
+    for board in 0..<transBoards.count {
+      for row in 0..<transBoards[board].count {
+        for val in 0..<transBoards[board][row].count {
+          if transBoards[board][row][val] == drawnNumber {
+            transBoards[board][row][val] = -1
+          }
+        }
+      }
+    }
+
+    var indexToRemove = [Int]()
+    
+    if boards.count == 1 {
+      print("setting last board")
+      lastBoard = boards.first
+    }
+    
+    for board in 0..<boards.count {
+      for row in 0..<boards[board].count {
+        let nonNeg = boards[board][row].filter { $0 > 0 }
+        if nonNeg.count == 0 {
+          indexToRemove.append(board)
+        }
+      }
+    }
+
+    indexToRemove = indexToRemove.sorted()
+    indexToRemove = indexToRemove.reversed()
+    indexToRemove.forEach {
+      boards.remove(at: $0)
+      transBoards.remove(at: $0)
+    }
+
+    indexToRemove.removeAll()
+    
+    for board in 0..<transBoards.count {
+      for row in 0..<transBoards[board].count {
+        let nonNeg = transBoards[board][row].filter { $0 > 0 }
+        if nonNeg.count == 0 {
+          indexToRemove.append(board)
+        }
+      }
+    }
+    indexToRemove = indexToRemove.sorted()
+    indexToRemove = indexToRemove.reversed()
+    indexToRemove.forEach {
+      boards.remove(at: $0)
+      transBoards.remove(at: $0)
+    }
+
+    if boards.count > 0 {
+      lastBoard = nil
+    }
+
+    drawNumIdx += 1
+  }
+  
+  guard let lastBoard = lastBoard else {
+    print("something went wrong")
+    return
+  }
+  
+  let winningNumber = drawNumbersArr[drawNumIdx - 1]
+  
+  print(lastBoard)
+  
+  // get all non-marked numbers
+  var sum = 0
+  for row in lastBoard {
+    for val in row {
+      if val > 0 {
+        sum += val
+      }
+    }
+  }
+  
+  print("winning sum \(sum) * number \(winningNumber): \(sum * winningNumber)")
+}
+
 if let input = readInput() {
-  processInput1(input)
+  processInput2(input)
 }
 
 
